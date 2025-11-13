@@ -11,8 +11,6 @@ export default function BooksPage() {
         const fetchBooks = async () => {
             try {
                 const res = await api.get("/api/v1/books");
-                console.log(res.data);
-                console.log(Array.isArray(res.data));
                 setBooks(Array.isArray(res.data.data) ? res.data.data : []);
             } catch (err) {
                 console.error("Failed to load books", err);

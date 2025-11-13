@@ -19,36 +19,34 @@ export const AuthProvider = ({ children }: any) => {
     useEffect(() => {
         const t = localStorage.getItem("token");
         if (t) {
-            try {
-                const payload: any = jwtDecode(t);
+            setAuthToken(t);
+            (async () => {
+                const res = await api.get("/api/v1/auth/me");
                 setUser({
-                    id: payload.sub,
-                    name: payload.name,
-                    email: payload.email,
-                    role: payload.role,
+                    id: res.data.data._id,
+                    name: res.data.data.name,
+                    email: res.data.data.email,
+                    role: res.data.data.role,
                 });
                 setToken(t);
-                setAuthToken(t);
-            } catch (e) {
-                console.warn("invalid token", e);
-                logout();
-            }
+            })();
         }
     }, []);
 
     const login = async (email: string, password: string) => {
         const res = await api.post("/api/v1/auth/login", { email, password });
-        const t = res.data.token;
-        localStorage.setItem("token", t);
-        setAuthToken(t);
-        const payload: any = jwtDecode(t);
+        const { token, _id, name, res_email } = res.data;
+
+        localStorage.setItem("token", token);
+        setAuthToken(token);
+        const payload: any = jwtDecode(token);
         setUser({
-            id: payload.sub,
-            name: payload.name,
-            email: payload.email,
+            id: _id,
+            name,
+            email: res_email,
             role: payload.role,
         });
-        setToken(t);
+        setToken(token);
     };
 
     const register = async (payload: any) => {

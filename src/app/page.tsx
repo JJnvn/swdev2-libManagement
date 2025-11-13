@@ -15,11 +15,10 @@ export default function Home() {
                 {user ? (
                     <div className="space-y-2">
                         <p className="text-gray-700">
-                            ยินดีต้อนรับ,{" "}
+                            Welcome{" "}
                             <span className="font-semibold text-indigo-600">
                                 {user.name}
-                            </span>{" "}
-                            ({user.role})
+                            </span>
                         </p>
                         <p className="text-sm text-gray-500">
                             Manage your bookings and explore available books.

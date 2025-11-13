@@ -6,8 +6,8 @@ baseURL: process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000',
 
 
 export function setAuthToken(token: string | null) {
-if (token) api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-else delete api.defaults.headers.common['Authorization'];
+    if (token) api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    else delete api.defaults.headers.common['Authorization'];
 }
 
 
