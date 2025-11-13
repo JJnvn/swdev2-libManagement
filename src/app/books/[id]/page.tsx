@@ -53,12 +53,15 @@ export default function BookDetail() {
             </div>
         );
 
+    const isAdmin = auth.user?.role === "admin";
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
             <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md text-center">
                 <h2 className="text-2xl font-bold text-red-500 mb-4">
                     {book.title}
                 </h2>
+
                 <p className="text-gray-700 mb-2">
                     <span className="font-semibold">Author:</span> {book.author}
                 </p>
@@ -75,19 +78,30 @@ export default function BookDetail() {
                     {book.availableAmount ?? 0}
                 </p>
 
-                <button
-                    onClick={reserve}
-                    disabled={book.availableAmount <= 0}
-                    className={`w-full py-2 rounded-lg text-white font-semibold transition-colors duration-200 ${
-                        book.availableAmount > 0
-                            ? "bg-red-500 hover:bg-red-600"
-                            : "bg-gray-400 cursor-not-allowed"
-                    }`}
-                >
-                    {book.availableAmount > 0
-                        ? "Reserve this Book"
-                        : "Unavailable"}
-                </button>
+                {!isAdmin && (
+                    <button
+                        onClick={reserve}
+                        disabled={book.availableAmount <= 0}
+                        className={`w-full py-2 rounded-lg text-white font-semibold transition-colors duration-200 ${
+                            book.availableAmount > 0
+                                ? "bg-red-500 hover:bg-red-600"
+                                : "bg-gray-400 cursor-not-allowed"
+                        }`}
+                    >
+                        {book.availableAmount > 0
+                            ? "Reserve this Book"
+                            : "Unavailable"}
+                    </button>
+                )}
+
+                {isAdmin && (
+                    <button
+                        onClick={() => router.push(`/books/${id}/edit`)}
+                        className="w-full py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors duration-200"
+                    >
+                        Edit Book
+                    </button>
+                )}
 
                 <button
                     onClick={() => router.push("/books")}
