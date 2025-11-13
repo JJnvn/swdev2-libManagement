@@ -8,6 +8,8 @@ export default function BookDetail() {
     const { id } = useParams();
     const [book, setBook] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [borrowDate, setBorrowDate] = useState<string>("");
+    const [pickupDate, setPickupDate] = useState<string>("");
     const auth = useAuth();
     const router = useRouter();
 
@@ -26,14 +28,17 @@ export default function BookDetail() {
 
     const reserve = async () => {
         if (!auth.user) return alert("Please login first");
+        if (!borrowDate || !pickupDate)
+            return alert("Please select both borrow and pickup dates");
+
         try {
             await api.post("/api/v1/reservations", {
                 book: id,
-                borrowDate: new Date().toISOString(),
-                pickupDate: new Date(Date.now() + 7 * 86400000).toISOString(),
+                borrowDate: new Date(borrowDate).toISOString(),
+                pickupDate: new Date(pickupDate).toISOString(),
             });
             alert("Reservation created successfully!");
-            router.push("/books/reservation");
+            router.push("/books/reservatiosn");
         } catch (e: any) {
             alert(e.response?.data?.message || "Failed to reserve");
         }
@@ -54,6 +59,8 @@ export default function BookDetail() {
         );
 
     const isAdmin = auth.user?.role === "admin";
+
+    const today = new Date().toISOString().slice(0, 10);
 
     return (
         <div className="min-h-screen bg-gray-50 p-6">
@@ -101,6 +108,46 @@ export default function BookDetail() {
                             <span className="font-semibold">Available:</span>{" "}
                             {book.availableAmount ?? 0}
                         </p>
+
+                        {/* Borrow & Pickup date selection */}
+                        {!isAdmin && (
+                            <div className="space-y-3 mt-4">
+                                <div className="flex items-center justify-between gap-4">
+                                    <label className="font-semibold w-40">
+                                        Choose your borrow date:
+                                    </label>
+                                    <input
+                                        type="date"
+                                        value={borrowDate}
+                                        onChange={(e) => {
+                                            setBorrowDate(e.target.value);
+                                            if (
+                                                pickupDate &&
+                                                e.target.value > pickupDate
+                                            ) {
+                                                setPickupDate(e.target.value);
+                                            }
+                                        }}
+                                        min={today}
+                                        className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500"
+                                    />
+                                </div>
+                                <div className="flex items-center justify-between gap-4">
+                                    <label className="font-semibold w-40">
+                                        Choose your pickup date:
+                                    </label>
+                                    <input
+                                        type="date"
+                                        value={pickupDate}
+                                        onChange={(e) =>
+                                            setPickupDate(e.target.value)
+                                        }
+                                        min={borrowDate || today}
+                                        className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500"
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Buttons */}
