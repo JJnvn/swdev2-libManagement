@@ -32,7 +32,7 @@ export default function ReservationDetailPage() {
                 pickupDate: reservation.pickupDate,
             });
             alert("✅ Reservation updated successfully!");
-            router.push("/books/reservation");
+            router.push("/books/reservations");
         } catch (err) {
             alert("❌ Failed to update reservation.");
             console.error(err);
@@ -47,7 +47,7 @@ export default function ReservationDetailPage() {
         try {
             await api.delete(`/api/v1/reservations/${id}`);
             alert("🗑️ Reservation deleted successfully!");
-            router.push("/books/reservation");
+            router.push("/books/reservations");
         } catch (err) {
             alert("❌ Failed to delete reservation.");
             console.error(err);
@@ -70,25 +70,39 @@ export default function ReservationDetailPage() {
 
     return (
         <div className="max-w-lg mx-auto bg-white shadow-md rounded-xl p-6 mt-10">
-            <h1 className="text-2xl font-bold text-indigo-600 mb-4">
-                Reservation Detail
-            </h1>
+            <div className="flex justify-between items-center mb-4">
+                <h1 className="text-2xl font-bold text-indigo-600">
+                    Reservation Detail
+                </h1>
+                <button
+                    onClick={() => router.push("/books/reservations")}
+                    className="bg-gray-200 text-gray-800 px-3 py-1 rounded-lg hover:bg-gray-300 transition"
+                >
+                    ← Back
+                </button>
+            </div>
 
             <div className="space-y-3">
                 <div>
                     <label className="block text-gray-700 font-medium mb-1">
-                        Book Title
+                        Book Title :
                     </label>
-                    <p className="text-gray-800">{reservation.bookTitle}</p>
+                    <p className="text-gray-800">{reservation.book.title}</p>
                 </div>
 
                 <div>
                     <label className="block text-gray-700 font-medium mb-1">
-                        Borrow Date
+                        Borrow Date :
                     </label>
                     <input
                         type="date"
-                        value={reservation.borrowDate}
+                        value={
+                            reservation.borrowDate
+                                ? new Date(reservation.borrowDate)
+                                      .toISOString()
+                                      .slice(0, 10)
+                                : ""
+                        }
                         onChange={(e) =>
                             setReservation({
                                 ...reservation,
@@ -101,11 +115,17 @@ export default function ReservationDetailPage() {
 
                 <div>
                     <label className="block text-gray-700 font-medium mb-1">
-                        Pickup Date
+                        Pickup Date :
                     </label>
                     <input
                         type="date"
-                        value={reservation.pickupDate}
+                        value={
+                            reservation.pickupDate
+                                ? new Date(reservation.pickupDate)
+                                      .toISOString()
+                                      .slice(0, 10)
+                                : ""
+                        }
                         onChange={(e) =>
                             setReservation({
                                 ...reservation,
