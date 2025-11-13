@@ -14,7 +14,7 @@ export default function LoginPage() {
         e.preventDefault();
         try {
             await auth.login(email, password);
-            router.push("/");
+            router.push("/books");
         } catch (err) {
             alert("❌ Login failed. Please check your credentials.");
         }
