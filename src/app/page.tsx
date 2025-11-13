@@ -24,15 +24,6 @@ export default function Home() {
                         <p className="text-sm text-gray-500">
                             Manage your bookings and explore available books.
                         </p>
-
-                        <div className="mt-4 flex flex-col space-y-2">
-                            <button
-                                onClick={logout}
-                                className="w-full bg-red-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-red-600 transition"
-                            >
-                                Logout
-                            </button>
-                        </div>
                     </div>
                 ) : (
                     <div className="space-y-4">
@@ -63,15 +54,15 @@ export default function Home() {
                     >
                         Browse Books
                     </Link>
+                </div>
 
-                    {user?.role === "admin" && (
-                        <Link
-                            href="/admin/books"
-                            className="w-full border border-indigo-600 text-indigo-600 font-medium py-2 px-4 rounded-lg hover:bg-indigo-50 transition"
-                        >
-                            Admin: Manage Books
-                        </Link>
-                    )}
+                <div className="mt-4 flex flex-col space-y-2">
+                    <button
+                        onClick={logout}
+                        className="w-full bg-red-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-red-600 transition cursor-pointer"
+                    >
+                        Logout
+                    </button>
                 </div>
             </div>
 
