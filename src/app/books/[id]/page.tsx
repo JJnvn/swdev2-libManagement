@@ -28,11 +28,9 @@ export default function BookDetail() {
         if (!auth.user) return alert("Please login first");
         try {
             await api.post("/api/v1/reservations", {
-                bookId: id,
-                borrowDate: new Date().toISOString().slice(0, 10),
-                returnDate: new Date(Date.now() + 7 * 86400000)
-                    .toISOString()
-                    .slice(0, 10),
+                book: id,
+                borrowDate: new Date(Date.now()).toISOString(),
+                pickupDate: new Date(Date.now() + 7 * 86400000).toISOString(),
             });
             alert("Reservation created successfully!");
             router.push("/books");
