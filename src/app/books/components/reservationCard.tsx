@@ -19,7 +19,9 @@ export default function ReservationCard({ reservation }: ReservationCardProps) {
                     Borrow Date:{" "}
                     <span className="font-medium">
                         {reservation.borrowDate
-                            ? new Date(reservation.borrowDate).toLocaleString()
+                            ? new Date(
+                                  reservation.borrowDate
+                              ).toLocaleDateString()
                             : "-"}
                     </span>
                 </p>
@@ -27,7 +29,9 @@ export default function ReservationCard({ reservation }: ReservationCardProps) {
                     Pickup Date:{" "}
                     <span className="font-medium">
                         {reservation.pickupDate
-                            ? new Date(reservation.pickupDate).toLocaleString()
+                            ? new Date(
+                                  reservation.pickupDate
+                              ).toLocaleDateString()
                             : "-"}
                     </span>
                 </p>
