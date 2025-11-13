@@ -8,6 +8,7 @@ export default function ReservationPage() {
     const [reservations, setReservations] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const { user } = useAuth();
+    const maxReservations = 3;
 
     useEffect(() => {
         const fetchReservations = async () => {
@@ -33,9 +34,17 @@ export default function ReservationPage() {
 
     return (
         <div className="p-6">
-            <h1 className="text-3xl font-bold text-indigo-600 mb-6">
-                📖 Reservations
-            </h1>
+            <div className="flex justify-between items-center mb-6">
+                <h1 className="text-3xl font-bold text-indigo-600 flex items-center">
+                    📖 Reservations
+                </h1>
+                {!user?.role || user.role === "member" ? (
+                    <span className="text-sm text-gray-400">
+                        current reservations: {reservations.length}/
+                        {maxReservations}
+                    </span>
+                ) : null}
+            </div>
 
             {reservations.length === 0 ? (
                 <p className="text-gray-500">No reservations found.</p>
