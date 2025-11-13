@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 
 export default function Home() {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 px-6">
@@ -13,16 +13,26 @@ export default function Home() {
                 </h1>
 
                 {user ? (
-                    <div className="space-y-2">
+                    <div className="space-y-4">
                         <p className="text-gray-700">
                             Welcome{" "}
                             <span className="font-semibold text-indigo-600">
                                 {user.name}
-                            </span>
+                            </span>{" "}
+                            ({user.role})
                         </p>
                         <p className="text-sm text-gray-500">
                             Manage your bookings and explore available books.
                         </p>
+
+                        <div className="mt-4 flex flex-col space-y-2">
+                            <button
+                                onClick={logout}
+                                className="w-full bg-red-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-red-600 transition"
+                            >
+                                Logout
+                            </button>
+                        </div>
                     </div>
                 ) : (
                     <div className="space-y-4">
