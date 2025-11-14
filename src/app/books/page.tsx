@@ -1,30 +1,26 @@
 "use client";
+import useSWR from "swr";
 import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
-import { useEffect, useState } from "react";
 import BookCard from "./components/bookCard";
 import Link from "next/link";
 
+const fetcher = (url: string) => api.get(url).then((r) => r.data.data);
+
 export default function BooksPage() {
-    const [books, setBooks] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
     const { user } = useAuth();
 
-    useEffect(() => {
-        const fetchBooks = async () => {
-            try {
-                const res = await api.get("/api/v1/books");
-                setBooks(Array.isArray(res.data.data) ? res.data.data : []);
-            } catch (err) {
-                console.error("Failed to load books", err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchBooks();
-    }, []);
+    // SWR handles caching + dedupe + auto-reload
+    const {
+        data: books,
+        isLoading,
+        mutate,
+    } = useSWR("/api/v1/books", fetcher, {
+        dedupingInterval: 60000, // 1 minute cache, prevents 429 spam
+        revalidateOnFocus: false, // prevents extra fetches
+    });
 
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="flex justify-center items-center h-full text-gray-600">
                 Loading books...
@@ -48,12 +44,16 @@ export default function BooksPage() {
                 )}
             </div>
 
-            {books.length === 0 ? (
+            {!books || books.length === 0 ? (
                 <p className="text-gray-500">No books available right now.</p>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {books.map((book) => (
-                        <BookCard key={book.id} book={book} />
+                    {books.map((book: any) => (
+                        <BookCard
+                            key={book.id}
+                            book={book}
+                            mutateBooks={mutate} // pass mutate to card
+                        />
                     ))}
                 </div>
             )}
