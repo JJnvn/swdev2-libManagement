@@ -5,8 +5,10 @@ import { useAuth } from "@/context/AuthContext";
 import ReservationCard from "@/app/books/components/reservationCard";
 
 export default function ReservationPage() {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
     const maxReservations = 3;
+
+    if (loading) return <div>Loading...</div>;
 
     const {
         data: reservations,

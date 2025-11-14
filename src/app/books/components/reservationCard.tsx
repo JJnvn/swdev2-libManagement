@@ -7,7 +7,8 @@ interface ReservationCardProps {
 }
 
 export default function ReservationCard({ reservation }: ReservationCardProps) {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
+    if (loading) return <div>Loading...</div>;
 
     return (
         <div className="bg-white shadow-md rounded-xl p-5 flex justify-between items-center hover:shadow-lg transition">
@@ -40,7 +41,7 @@ export default function ReservationCard({ reservation }: ReservationCardProps) {
                     <p className="text-sm text-gray-500 mt-1">
                         👤 Reserved by:{" "}
                         <span className="font-medium">
-                            {reservation.userName}
+                            {reservation.user.name}
                         </span>
                     </p>
                 )}

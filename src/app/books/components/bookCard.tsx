@@ -4,7 +4,8 @@ import api from "@/lib/api";
 import Link from "next/link";
 
 export default function BookCard({ book, mutateBooks }: any) {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
+    if (loading) return <div>Loading...</div>;
 
     const deleteBook = async () => {
         if (!confirm("Delete this book?")) return;

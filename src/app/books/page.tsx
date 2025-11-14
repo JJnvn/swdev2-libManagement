@@ -8,7 +8,8 @@ import Link from "next/link";
 const fetcher = (url: string) => api.get(url).then((r) => r.data.data);
 
 export default function BooksPage() {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
+    if (loading) return <div>Loading...</div>;
 
     // SWR handles caching + dedupe + auto-reload
     const {
