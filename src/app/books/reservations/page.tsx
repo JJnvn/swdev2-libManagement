@@ -3,6 +3,7 @@ import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
 import { useAuth } from "@/context/AuthContext";
 import ReservationCard from "@/app/books/components/reservationCard";
+import Link from "next/link";
 
 export default function ReservationPage() {
     const { user, loading: authLoading } = useAuth();
@@ -17,18 +18,37 @@ export default function ReservationPage() {
         revalidateOnFocus: false,
     });
 
-    // Conditional rendering after all hooks
+    // Show loading while auth or data is loading
     if (authLoading || isLoading)
         return (
             <div className="flex justify-center items-center h-screen text-gray-500">
-                Loading...
+                Loading reservations...
             </div>
         );
 
-    if (error)
+    // Handle errors
+    if (error) {
+        // @ts-ignore
+        if (error.status === 401) {
+            return (
+                <p className="text-gray-600 text-center mt-10">
+                    Cannot load reservations. Please{" "}
+                    <Link
+                        href="/login"
+                        className="text-indigo-600 font-medium hover:underline"
+                    >
+                        login
+                    </Link>{" "}
+                    to view your reservations.
+                </p>
+            );
+        }
         return (
-            <div className="text-red-500 p-6">Failed to load reservations.</div>
+            <div className="text-red-500 p-6 text-center">
+                Failed to load reservations.
+            </div>
         );
+    }
 
     return (
         <div className="p-6">
@@ -45,7 +65,9 @@ export default function ReservationPage() {
             </div>
 
             {!reservations || reservations.length === 0 ? (
-                <p className="text-gray-500">No reservations found.</p>
+                <p className="text-gray-500 text-center">
+                    You have no reservations yet.
+                </p>
             ) : (
                 <div className="space-y-4">
                     {reservations.map((r: any) => (
