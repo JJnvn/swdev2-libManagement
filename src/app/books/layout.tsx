@@ -12,7 +12,7 @@ export default function Layout({ children }: any) {
 
             <div className="flex-1 flex flex-col">
                 <Navbar setSidebarOpen={setSidebarOpen} />
-                <main className="p-6">{children}</main>
+                <main className="p-6 bg-gray-100">{children}</main>
             </div>
         </div>
     );

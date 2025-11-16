@@ -63,7 +63,7 @@ export default function BookDetail() {
     const today = new Date().toISOString().slice(0, 10);
 
     return (
-        <div className="min-h-screen bg-gray-50 p-6">
+        <div className="min-h-screen bg-gray-100 p-6">
             {/* Back Button */}
             <div className="flex justify-end mb-4">
                 <button
@@ -76,7 +76,7 @@ export default function BookDetail() {
 
             <div className="bg-white shadow-lg rounded-2xl flex flex-col md:flex-row max-w-4xl mx-auto overflow-hidden">
                 {/* Left: Image */}
-                <div className="md:w-1/3 bg-gray-100 flex items-center justify-center p-4">
+                <div className="md:w-1/3 bg-gray-50 flex items-center justify-center p-4">
                     {book.coverPicture ? (
                         <img
                             src={book.coverPicture}
