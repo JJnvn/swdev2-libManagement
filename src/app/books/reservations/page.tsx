@@ -5,24 +5,23 @@ import { useAuth } from "@/context/AuthContext";
 import ReservationCard from "@/app/books/components/reservationCard";
 
 export default function ReservationPage() {
-    const { user, loading } = useAuth();
+    const { user, loading: authLoading } = useAuth();
     const maxReservations = 3;
-
-    if (loading) return <div>Loading...</div>;
 
     const {
         data: reservations,
         error,
         isLoading,
     } = useSWR("/api/v1/reservations", fetcher, {
-        dedupingInterval: 5000, // prevent duplicate requests
-        revalidateOnFocus: false, // don't refetch on page focus
+        dedupingInterval: 5000,
+        revalidateOnFocus: false,
     });
 
-    if (isLoading)
+    // Conditional rendering after all hooks
+    if (authLoading || isLoading)
         return (
             <div className="flex justify-center items-center h-screen text-gray-500">
-                Loading reservations...
+                Loading...
             </div>
         );
 
