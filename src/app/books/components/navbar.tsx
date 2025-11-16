@@ -2,6 +2,7 @@
 import { Menu, Library } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Navbar({ setSidebarOpen }: any) {
     const { user, logout } = useAuth();
@@ -62,7 +63,16 @@ export default function Navbar({ setSidebarOpen }: any) {
                         </button>
                     </>
                 ) : (
-                    <p className="text-gray-500 text-sm">Not logged in</p>
+                    <p className="text-sm text-gray-600 text-center">
+                        Can't reserve a book? Try{" "}
+                        <Link
+                            href="/login"
+                            className="text-indigo-600 font-medium hover:underline"
+                        >
+                            logging in
+                        </Link>
+                        .
+                    </p>
                 )}
             </div>
         </nav>
