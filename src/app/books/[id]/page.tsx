@@ -171,7 +171,7 @@ export default function BookDetail() {
                         {isAdmin && (
                             <button
                                 onClick={() => router.push(`/books/${id}/edit`)}
-                                className="flex-1 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors duration-200"
+                                className="flex-1 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
                             >
                                 Edit Book
                             </button>

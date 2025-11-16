@@ -10,7 +10,7 @@ export default function Layout({ children }: any) {
         <div className="flex h-screen">
             <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col bg-gray-100">
                 <Navbar setSidebarOpen={setSidebarOpen} />
                 <main className="p-6 bg-gray-100">{children}</main>
             </div>

@@ -69,98 +69,107 @@ export default function ReservationDetailPage() {
         );
 
     return (
-        <div className="max-w-lg mx-auto bg-white shadow-md rounded-xl p-6 mt-10">
-            <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold text-indigo-600">
-                    Reservation Detail
-                </h1>
+        <div className="min-h-screen bg-gray-100 p-6">
+            {/* Back Button - same style & position as books/[id] */}
+            <div className="flex justify-end mb-4">
                 <button
                     onClick={() => router.push("/books/reservations")}
-                    className="bg-gray-200 text-gray-800 px-3 py-1 rounded-lg hover:bg-gray-300 transition"
+                    className="bg-gray-400 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-600 transition cursor-pointer"
                 >
-                    ← Back
+                    Back
                 </button>
             </div>
 
-            <div className="space-y-3">
-                <div>
-                    <label className="block text-gray-700 font-medium mb-1">
-                        Book Title :
-                    </label>
-                    <p className="text-gray-800">{reservation.book.title}</p>
-                </div>
+            {/* Main content card */}
+            <div className="max-w-lg mx-auto bg-white shadow-lg rounded-xl p-6">
+                <h1 className="text-2xl font-bold text-indigo-600 mb-4">
+                    Reservation Detail
+                </h1>
 
-                <div>
-                    <label className="block text-gray-700 font-medium mb-1">
-                        Borrow Date :
-                    </label>
-                    <input
-                        type="date"
-                        value={
-                            reservation.borrowDate
-                                ? new Date(reservation.borrowDate)
-                                      .toISOString()
-                                      .slice(0, 10)
-                                : ""
-                        }
-                        onChange={(e) =>
-                            setReservation({
-                                ...reservation,
-                                borrowDate: e.target.value,
-                            })
-                        }
-                        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500"
-                    />
-                </div>
-
-                <div>
-                    <label className="block text-gray-700 font-medium mb-1">
-                        Pickup Date :
-                    </label>
-                    <input
-                        type="date"
-                        value={
-                            reservation.pickupDate
-                                ? new Date(reservation.pickupDate)
-                                      .toISOString()
-                                      .slice(0, 10)
-                                : ""
-                        }
-                        onChange={(e) =>
-                            setReservation({
-                                ...reservation,
-                                pickupDate: e.target.value,
-                            })
-                        }
-                        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500"
-                    />
-                </div>
-
-                {reservation.userName && (
+                <div className="space-y-3">
                     <div>
                         <label className="block text-gray-700 font-medium mb-1">
-                            Reserved By
+                            Book Title :
                         </label>
-                        <p className="text-gray-800">{reservation.userName}</p>
+                        <p className="text-gray-800">
+                            {reservation.book.title}
+                        </p>
                     </div>
-                )}
-            </div>
 
-            <div className="flex justify-between mt-6">
-                <button
-                    onClick={handleUpdate}
-                    disabled={updating}
-                    className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
-                >
-                    {updating ? "Updating..." : "Update Reservation"}
-                </button>
+                    <div>
+                        <label className="block text-gray-700 font-medium mb-1">
+                            Borrow Date :
+                        </label>
+                        <input
+                            type="date"
+                            value={
+                                reservation.borrowDate
+                                    ? new Date(reservation.borrowDate)
+                                          .toISOString()
+                                          .slice(0, 10)
+                                    : ""
+                            }
+                            onChange={(e) =>
+                                setReservation({
+                                    ...reservation,
+                                    borrowDate: e.target.value,
+                                })
+                            }
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500"
+                        />
+                    </div>
 
-                <button
-                    onClick={handleDelete}
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
-                >
-                    Delete Reservation
-                </button>
+                    <div>
+                        <label className="block text-gray-700 font-medium mb-1">
+                            Pickup Date :
+                        </label>
+                        <input
+                            type="date"
+                            value={
+                                reservation.pickupDate
+                                    ? new Date(reservation.pickupDate)
+                                          .toISOString()
+                                          .slice(0, 10)
+                                    : ""
+                            }
+                            onChange={(e) =>
+                                setReservation({
+                                    ...reservation,
+                                    pickupDate: e.target.value,
+                                })
+                            }
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500"
+                        />
+                    </div>
+
+                    {reservation.userName && (
+                        <div>
+                            <label className="block text-gray-700 font-medium mb-1">
+                                Reserved By
+                            </label>
+                            <p className="text-gray-800">
+                                {reservation.userName}
+                            </p>
+                        </div>
+                    )}
+                </div>
+
+                <div className="flex justify-between mt-6">
+                    <button
+                        onClick={handleUpdate}
+                        disabled={updating}
+                        className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition cursor-pointer"
+                    >
+                        {updating ? "Updating..." : "Update Reservation"}
+                    </button>
+
+                    <button
+                        onClick={handleDelete}
+                        className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition cursor-pointer"
+                    >
+                        Delete Reservation
+                    </button>
+                </div>
             </div>
         </div>
     );

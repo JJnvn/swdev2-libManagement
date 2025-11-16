@@ -97,13 +97,13 @@ export default function EditBookPage() {
                 <div className="flex gap-2 mt-6">
                     <button
                         onClick={handleUpdate}
-                        className="flex-1 bg-green-500 text-white py-2 rounded-lg font-semibold hover:bg-green-600"
+                        className="flex-1 bg-green-500 text-white py-2 rounded-lg font-semibold hover:bg-green-600 cursor-pointer"
                     >
                         Save
                     </button>
                     <button
                         onClick={() => router.push(`/books/${id}`)}
-                        className="flex-1 border border-gray-400 text-gray-700 py-2 rounded-lg font-semibold hover:bg-gray-100"
+                        className="flex-1 border border-gray-400 text-gray-700 py-2 rounded-lg font-semibold hover:bg-gray-100 cursor-pointer"
                     >
                         Cancel
                     </button>
