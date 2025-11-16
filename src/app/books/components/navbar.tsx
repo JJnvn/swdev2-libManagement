@@ -1,8 +1,9 @@
 "use client";
+import { Menu, Library } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
-export default function Navbar() {
+export default function Navbar({ setSidebarOpen }: any) {
     const { user, logout } = useAuth();
     const router = useRouter();
 
@@ -12,13 +13,27 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="bg-white shadow flex justify-between items-center px-6 py-3 border-b">
-            {/* Left side: App name */}
-            <h1 className="text-2xl font-semibold text-indigo-600">
-                📚 Library Dashboard
-            </h1>
+        <nav className="bg-white shadow flex items-center justify-between px-6 py-3 border-b">
+            {/* LEFT: Hamburger + Logo */}
+            <div className="flex items-center space-x-4">
+                <button
+                    onClick={() => setSidebarOpen((prev: boolean) => !prev)}
+                    className="
+                        p-2 rounded-lg cursor-pointer
+                        bg-indigo-500 hover:bg-indigo-600
+                        transition text-white
+                    "
+                >
+                    <Menu size={26} />
+                </button>
 
-            {/* Right side: User info + logout */}
+                <h1 className="text-xl font-semibold text-indigo-600 flex items-center gap-2">
+                    <Library size={22} />
+                    Library Dashboard
+                </h1>
+            </div>
+
+            {/* RIGHT: User */}
             <div className="flex items-center space-x-4">
                 {user ? (
                     <>

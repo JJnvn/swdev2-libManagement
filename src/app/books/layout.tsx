@@ -1,18 +1,18 @@
 "use client";
-import Navbar from "./components/navbar";
-import Sidebar from "./components/sidebar";
+import { useState } from "react";
+import Navbar from "@/app/books/components/navbar";
+import Sidebar from "@/app/books/components/sidebar";
 
-export default function BooksLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export default function Layout({ children }: any) {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
     return (
-        <div className="flex h-screen bg-gray-100">
-            <Sidebar />
-            <div className="flex flex-col flex-1">
-                <Navbar />
-                <main className="flex-1 overflow-y-auto p-6">{children}</main>
+        <div className="flex h-screen">
+            <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
+
+            <div className="flex-1 flex flex-col">
+                <Navbar setSidebarOpen={setSidebarOpen} />
+                <main className="p-6">{children}</main>
             </div>
         </div>
     );
