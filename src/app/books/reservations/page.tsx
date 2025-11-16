@@ -34,8 +34,8 @@ export default function ReservationPage() {
     return (
         <div className="p-6">
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold text-indigo-600 flex items-center">
-                    📖 Reservations
+                <h1 className="text-2xl font-bold flex items-center">
+                    Reservations
                 </h1>
                 {!user?.role || user.role === "member" ? (
                     <span className="text-sm text-gray-400">
