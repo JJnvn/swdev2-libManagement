@@ -16,15 +16,15 @@ export default function LoginPage() {
             await auth.login(email, password);
             router.push("/books");
         } catch (err) {
-            alert("❌ Login failed. Please check your credentials.");
+            alert("Login failed. Please check your credentials.");
         }
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 px-6">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 p-6">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
                 <h2 className="text-3xl font-bold text-center text-indigo-600 mb-6">
-                    🔐 Login to Your Account
+                    Login to Your Account
                 </h2>
 
                 <form onSubmit={submit} className="space-y-5">
@@ -67,7 +67,7 @@ export default function LoginPage() {
                 <p className="text-center text-gray-600 mt-6 text-sm">
                     Don’t have an account?{" "}
                     <Link
-                        href="/register"
+                        href="/"
                         className="text-indigo-600 font-medium hover:underline"
                     >
                         Register

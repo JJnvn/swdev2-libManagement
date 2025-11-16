@@ -32,7 +32,7 @@ export default function RegisterPage() {
             const res = await api.post("/api/v1/auth/register", form);
 
             if (res.data.success) {
-                alert("✅ Registered successfully! Please login.");
+                alert("Registered successfully! Please login.");
                 router.push("/login");
             } else {
                 alert("Registration failed. Please try again.");
@@ -48,7 +48,7 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 px-6">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 p-6">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
                 <h1 className="text-3xl font-bold text-indigo-600 mb-6 text-center">
                     Library Management
@@ -124,10 +124,18 @@ export default function RegisterPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+                        className="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 cursor-pointer"
                     >
                         {loading ? "Registering..." : "Register"}
                     </button>
+
+                    {/* Browse books without login */}
+                    <Link
+                        href="/books"
+                        className="w-full block text-center py-2 border-2 border-indigo-600 text-indigo-600 bg-white font-semibold rounded-lg hover:bg-indigo-50 transition cursor-pointer"
+                    >
+                        Browse Books Without Login
+                    </Link>
                 </form>
 
                 <p className="mt-6 text-sm text-gray-600 text-center">
