@@ -28,10 +28,13 @@ export default function Navbar({ setSidebarOpen }: any) {
                     <Menu size={26} />
                 </button>
 
-                <h1 className="text-xl font-semibold text-indigo-600 flex items-center gap-2">
+                <Link
+                    href="/books"
+                    className="text-xl font-semibold text-indigo-600 flex items-center gap-2"
+                >
                     <Library size={22} />
                     Library Dashboard
-                </h1>
+                </Link>
             </div>
 
             {/* RIGHT: User */}
