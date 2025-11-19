@@ -38,7 +38,7 @@ export default function BookDetail() {
                 pickupDate: new Date(pickupDate).toISOString(),
             });
             alert("Reservation created successfully!");
-            router.push("/books/reservatiosn");
+            router.push("/books/reservations");
         } catch (e: any) {
             alert(e.response?.data?.message || "Failed to reserve");
         }
